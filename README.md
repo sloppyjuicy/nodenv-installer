@@ -30,3 +30,10 @@ curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doct
 # alternatively, with wget
 wget -q https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor -O- | bash
 ```
+
+## Credits
+
+Forked from [Mislav Marohnić][mislav]'s [rbenv-installer][] and modified for node.
+
+[mislav]: https://github.com/mislav
+[rbenv-installer]: https://github.com/rbenv/rbenv-installer
