@@ -1,32 +1,39 @@
-# rbenv installer & doctor scripts
+# nodenv installer & doctor scripts
 
-## rbenv-installer
+## nodenv-installer
 
-The `rbenv-installer` script idempotently installs or updates rbenv on your
+The `nodenv-installer` script idempotently installs or updates nodenv on your
 system. If Homebrew is detected, installation will proceed using `brew
-install/upgrade`. Otherwise, rbenv is installed under `~/.rbenv`.
+install/upgrade`. Otherwise, nodenv is installed under `~/.nodenv`.
 
-Additionally, [ruby-build](https://github.com/rbenv/ruby-build#readme) is also
-installed if `rbenv install` is not already available.
+Additionally, [node-build](https://github.com/nodenv/node-build#readme) is also
+installed if `nodenv install` is not already available.
 
 ```sh
 # with curl
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash
+curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-installer | bash
 
 # alternatively, with wget
-wget -q https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer -O- | bash
+wget -q https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-installer -O- | bash
 ```
 
-## rbenv-doctor
+## nodenv-doctor
 
-After the installation, a separate `rbenv-doctor` script is run to verify the
+After the installation, a separate `nodenv-doctor` script is run to verify the
 success of the installation and to detect common issues. You can run
-`rbenv-doctor` on your machine separately to verify the state of your install:
+`nodenv-doctor` on your machine separately to verify the state of your install:
 
 ```sh
 # with curl
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
 
 # alternatively, with wget
-wget -q https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor -O- | bash
+wget -q https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor -O- | bash
 ```
+
+## Credits
+
+Forked from [Mislav Marohnić][mislav]'s [rbenv-installer][] and modified for node.
+
+[mislav]: https://github.com/mislav
+[rbenv-installer]: https://github.com/rbenv/rbenv-installer
