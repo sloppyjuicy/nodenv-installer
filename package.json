@@ -26,11 +26,10 @@
     "postversion": "npm publish",
     "prepublishOnly": "npm run publish:github && npm run publish:brew",
     "publish:brew": "brew-publish",
-    "publish:github": "scripty"
+    "publish:github": "script/publish/github"
   },
   "devDependencies": {
-    "brew-publish": "^2.3.1",
-    "scripty": "^2.0.0-0"
+    "brew-publish": "^2.3.1"
   },
   "keywords": [
     "nodenv",
