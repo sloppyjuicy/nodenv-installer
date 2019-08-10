@@ -144,16 +144,6 @@ plugin_broken=0
 while IFS='' read -r hook; do
   plugin_name=
   message=
-  case "$hook" in
-  */"~gem-rehash.bash" )
-    plugin_name=nodenv-gem-rehash
-    message="functionality is now included in nodenv core. Please remove the plugin."
-    ;;
-  */"bundler.bash" )
-    plugin_name=nodenv-bundler
-    message="is considered harmful. Please remove the plugin and \`rm -rf \$(nodenv root)/shims && nodenv rehash'."
-    ;;
-  esac
 
   if [ -n "$plugin_name" ]; then
     [ "$((plugin_broken++))" -gt 0 ] || printc yellow "warning\n"
