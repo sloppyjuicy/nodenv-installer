@@ -140,12 +140,8 @@ else
 fi
 
 echo -n "Auditing installed plugins: "
-OLDIFS="$IFS"
-IFS=$'\n'
-hooks=(`nodenv hooks exec`)
-IFS="$OLDIFS"
 plugin_broken=0
-for hook in "${hooks[@]}"; do
+while IFS='' read -r hook; do
   plugin_name=
   message=
   case "$hook" in
@@ -167,7 +163,8 @@ for hook in "${hooks[@]}"; do
     } | indent
     : $((warnings++))
   fi
-done
+done < <(nodenv hooks exec)
+
 [ "$plugin_broken" -gt 0 ] || printc green "OK\n"
 
 [ $warnings -eq 0 ]
