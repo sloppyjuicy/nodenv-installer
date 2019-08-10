@@ -42,7 +42,7 @@ if [ -n "$nodenv" ]; then
     brew update >/dev/null
     if [ "$(./nodenv --version)" < "1.0.0" ] && brew list nodenv | grep -q nodenv/HEAD; then
       brew uninstall nodenv
-      brew install nodenv --without-node-build
+      brew install nodenv
     else
       brew upgrade nodenv
     fi
@@ -56,7 +56,7 @@ else
   if [ -n "$homebrew" ]; then
     echo "Installing nodenv with Homebrew..."
     brew update
-    brew install nodenv --without-node-build
+    brew install nodenv
     nodenv="$(brew --prefix)/bin/nodenv"
   else
     echo "Installing nodenv with git..."
