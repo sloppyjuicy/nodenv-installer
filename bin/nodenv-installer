@@ -42,7 +42,7 @@ if [ -n "$nodenv" ]; then
   if [ -x ./brew ]; then
     echo "Trying to update with Homebrew..."
     brew update >/dev/null
-    if [ "$(./nodenv --version)" < "1.0.0" ] && brew list nodenv | grep -q nodenv/HEAD; then
+    if [ "$(./nodenv --version)" \< "1.0.0" ] && brew list nodenv | grep -q nodenv/HEAD; then
       brew uninstall nodenv
       brew install nodenv
     else
