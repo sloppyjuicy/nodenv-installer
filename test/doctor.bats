@@ -2,7 +2,7 @@
 
 load test_helper
 
-@test "reports bin in PATH - not found" {
+@test "reports bin in PATH - missing" {
   run nodenv-doctor
 
   assert_failure
@@ -10,7 +10,7 @@ load test_helper
   assert_line "  Please refer to https://github.com/nodenv/nodenv#installation"
 }
 
-@test "reports bin in PATH - despite ~/.nodenv" {
+@test "reports bin in PATH - missing, despite ~/.nodenv" {
   with_nodenv_in_home
 
   run nodenv-doctor
@@ -36,4 +36,21 @@ load test_helper
   run nodenv-doctor
 
   assert_line "Checking for \`nodenv' in PATH: multiple"
+}
+
+@test "reports shims in PATH - missing" {
+  with_nodenv
+
+  run nodenv-doctor
+
+  assert_line "Checking for nodenv shims in PATH: not found"
+}
+
+@test "reports shims in PATH - OK" {
+  with_nodenv
+  with_nodenv_root
+
+  run nodenv-doctor
+
+  assert_line "Checking for nodenv shims in PATH: OK"
 }
