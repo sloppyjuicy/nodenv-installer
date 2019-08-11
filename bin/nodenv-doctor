@@ -3,7 +3,7 @@
 # Summary: Detects common problems in nodenv installation
 
 set -e
-[ -n "$NODENV_DEBUG" ] && set -x
+[ -n "$NODENV_DEBUG" ] && { export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '; set -x; }
 
 indent() {
   sed 's/^/  /'
