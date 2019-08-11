@@ -63,6 +63,15 @@ if [ "$num_locations" -eq 0 ]; then
       echo "Please refer to https://github.com/nodenv/nodenv#installation"
     fi
   } | indent
+
+  if [ -n "$(find "${NODENV_ROOT:-~/.nodenv}/bin/nodenv" -mmin 1 2>/dev/null)" ]; then
+    printc bright "Recent installation detected.\n"
+    { echo "Complete the installation by configuring your PATH as above,"
+      echo "and re-run nodenv-doctor in a fresh shell."
+    } | indent
+    exit 0
+  fi
+
   exit 1
 elif [ "$num_locations" -eq 1 ]; then
   printc green "%s\n" "$(type -P nodenv)"
