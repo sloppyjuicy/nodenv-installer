@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Usage: nodenv doctor
 # Summary: Detects common problems in nodenv installation
 
 set -e
-[ -n "$NODENV_DEBUG" ] && set -x
+[ -n "$NODENV_DEBUG" ] && { export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '; set -x; }
 
 indent() {
   sed 's/^/  /'
@@ -20,6 +20,7 @@ printc() {
     fmt="${!color_name}${fmt}${color_reset}"
   fi
 
+  # shellcheck disable=SC2059
   printf "$fmt" "$@"
 }
 
@@ -30,10 +31,15 @@ if [ -t 1 ]; then
   color_bright=$'\e[1;37m'
   color_reset=$'\e[0m'
 else
+  # shellcheck disable=SC2034
   color_red=""
+  # shellcheck disable=SC2034
   color_green=""
+  # shellcheck disable=SC2034
   color_yellow=""
+  # shellcheck disable=SC2034
   color_bright=""
+  # shellcheck disable=SC2034
   color_reset=""
 fi
 
@@ -46,7 +52,7 @@ else
 fi
 
 echo -n "Checking for \`nodenv' in PATH: "
-num_locations="$(which -a nodenv | uniq | wc -l)"
+num_locations="$(type -aP nodenv | uniq | wc -l)"
 if [ "$num_locations" -eq 0 ]; then
   printc red "not found\n"
   { if [ -x ~/.nodenv/bin/nodenv ]; then
@@ -59,13 +65,13 @@ if [ "$num_locations" -eq 0 ]; then
   } | indent
   exit 1
 elif [ "$num_locations" -eq 1 ]; then
-  printc green "%s\n" "$(which nodenv)"
+  printc green "%s\n" "$(type -P nodenv)"
 else
   printc yellow "multiple\n"
   { echo "You seem to have multiple nodenv installs in the following locations."
     echo "Please pick just one installation and remove the others."
     echo
-    which -a nodenv
+    type -aP nodenv
   } | indent
   echo
   : $((warnings++))
@@ -73,10 +79,7 @@ fi
 
 NODENV_ROOT="${NODENV_ROOT:-$(nodenv root)}"
 
-OLDIFS="$IFS"
-IFS=:
-path=($PATH)
-IFS="$OLDIFS"
+IFS=: read -ra path <<< "$PATH"
 
 echo -n "Checking for nodenv shims in PATH: "
 shims_dir="${NODENV_ROOT}/shims"
@@ -95,7 +98,7 @@ fi
 
 echo -n "Checking \`nodenv install' support: "
 nodenv_installs="$({ ls "$NODENV_ROOT"/plugins/*/bin/nodenv-install 2>/dev/null || true
-                    which -a nodenv-install 2>/dev/null || true
+                    type -aP nodenv-install 2>/dev/null || true
                   } | uniq)"
 num_installs="$(wc -l <<<"$nodenv_installs")"
 if [ -z "$nodenv_installs" ]; then
@@ -139,24 +142,10 @@ else
 fi
 
 echo -n "Auditing installed plugins: "
-OLDIFS="$IFS"
-IFS=$'\n'
-hooks=(`nodenv hooks exec`)
-IFS="$OLDIFS"
 plugin_broken=0
-for hook in "${hooks[@]}"; do
+while IFS='' read -r hook; do
   plugin_name=
   message=
-  case "$hook" in
-  */"~gem-rehash.bash" )
-    plugin_name=nodenv-gem-rehash
-    message="functionality is now included in nodenv core. Please remove the plugin."
-    ;;
-  */"bundler.bash" )
-    plugin_name=nodenv-bundler
-    message="is considered harmful. Please remove the plugin and \`rm -rf \$(nodenv root)/shims && nodenv rehash'."
-    ;;
-  esac
 
   if [ -n "$plugin_name" ]; then
     [ "$((plugin_broken++))" -gt 0 ] || printc yellow "warning\n"
@@ -166,7 +155,8 @@ for hook in "${hooks[@]}"; do
     } | indent
     : $((warnings++))
   fi
-done
+done < <(nodenv hooks exec)
+
 [ "$plugin_broken" -gt 0 ] || printc green "OK\n"
 
 [ $warnings -eq 0 ]
