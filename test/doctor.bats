@@ -2,7 +2,7 @@
 
 load test_helper
 
-@test "reports missing bin in PATH" {
+@test "reports bin in PATH - not found" {
   run nodenv-doctor
 
   assert_failure
@@ -10,7 +10,7 @@ load test_helper
   assert_line "  Please refer to https://github.com/nodenv/nodenv#installation"
 }
 
-@test "reports missing bin in PATH despite ~/.nodenv" {
+@test "reports bin in PATH - despite ~/.nodenv" {
   with_nodenv_in_home
 
   run nodenv-doctor
@@ -20,7 +20,7 @@ load test_helper
   assert_line "  You seem to have nodenv installed in \`$HOME/.nodenv/bin', but that"
 }
 
-@test "reports successful bin in PATH" {
+@test "reports bin in PATH - OK" {
   with_nodenv
 
   run nodenv-doctor
@@ -28,7 +28,7 @@ load test_helper
   assert_line "Checking for \`nodenv' in PATH: $PWD/node_modules/.bin/nodenv"
 }
 
-@test "reports multiple bins in PATH" {
+@test "reports bin in PATH - multiple" {
   with_nodenv
   with_nodenv_in_home
   PATH="$HOME/.nodenv/bin:$PATH"
