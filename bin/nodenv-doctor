@@ -31,10 +31,15 @@ if [ -t 1 ]; then
   color_bright=$'\e[1;37m'
   color_reset=$'\e[0m'
 else
+  # shellcheck disable=SC2034
   color_red=""
+  # shellcheck disable=SC2034
   color_green=""
+  # shellcheck disable=SC2034
   color_yellow=""
+  # shellcheck disable=SC2034
   color_bright=""
+  # shellcheck disable=SC2034
   color_reset=""
 fi
 
@@ -74,10 +79,7 @@ fi
 
 NODENV_ROOT="${NODENV_ROOT:-$(nodenv root)}"
 
-OLDIFS="$IFS"
-IFS=:
-path=($PATH)
-IFS="$OLDIFS"
+IFS=: read -ra path <<< "$PATH"
 
 echo -n "Checking for nodenv shims in PATH: "
 shims_dir="${NODENV_ROOT}/shims"
