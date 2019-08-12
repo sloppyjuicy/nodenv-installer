@@ -35,7 +35,7 @@ with_nodenv() {
   PATH="$PWD/node_modules/.bin:$PATH"
 }
 
-with_nodenv_root() {
+with_nodenv_shims() {
   local shims_path="$NODENV_ROOT/shims"
   mkdir -p "$shims_path"
   PATH="$shims_path:$PATH"

@@ -50,7 +50,7 @@ load test_helper
 
 @test "reports shims in PATH - OK" {
   with_nodenv
-  with_nodenv_root
+  with_nodenv_shims
 
   run nodenv-doctor
 
@@ -113,7 +113,7 @@ load test_helper
 
 @test "reports clean setup" {
   with_nodenv
-  with_nodenv_root
+  with_nodenv_shims
   with_nodenv_plugin nodenv-install
   with_nodes 10.2.3
 
