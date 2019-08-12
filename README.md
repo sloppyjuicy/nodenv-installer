@@ -19,10 +19,10 @@ installed if `nodenv install` is not already available.
 
 ```sh
 # with curl
-curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-installer | bash
+curl -fsSL https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-installer | bash
 
 # alternatively, with wget
-wget -q https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-installer -O- | bash
+wget -q https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-installer -O- | bash
 
 # with npx/npm
 npx @nodenv/nodenv-installer
@@ -36,10 +36,10 @@ success of the installation and to detect common issues. You can run
 
 ```sh
 # with curl
-curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
+curl -fsSL https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-doctor | bash
 
 # alternatively, with wget
-wget -q https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor -O- | bash
+wget -q https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-doctor -O- | bash
 
 # with npx/npm
 npx -p @nodenv/nodenv-installer nodenv-doctor
