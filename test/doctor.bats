@@ -35,6 +35,7 @@ load test_helper
 
   run nodenv-doctor
 
+  assert_failure
   assert_line "Checking for \`nodenv' in PATH: multiple"
 }
 
@@ -43,6 +44,7 @@ load test_helper
 
   run nodenv-doctor
 
+  assert_failure
   assert_line "Checking for nodenv shims in PATH: not found"
 }
 
@@ -60,6 +62,7 @@ load test_helper
 
   run nodenv-doctor
 
+  assert_failure
   assert_line "Checking \`nodenv install' support: not found"
 }
 
@@ -79,5 +82,6 @@ load test_helper
 
   run nodenv-doctor
 
+  assert_failure
   assert_line "Checking \`nodenv install' support: multiple"
 }
