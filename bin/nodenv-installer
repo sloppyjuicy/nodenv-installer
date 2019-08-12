@@ -109,7 +109,7 @@ mkdir -p "${nodenv_root}/cache"
 
 echo
 echo "Running doctor script to verify installation..."
-http https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | "$BASH"
+http https://raw.githubusercontent.com/nodenv/nodenv-installer/recent-install/bin/nodenv-doctor | "$BASH"
 
 echo
 echo "All done!"
