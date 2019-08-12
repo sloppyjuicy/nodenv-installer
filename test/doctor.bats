@@ -54,3 +54,30 @@ load test_helper
 
   assert_line "Checking for nodenv shims in PATH: OK"
 }
+
+@test "reports nodenv-install - missing" {
+  with_nodenv
+
+  run nodenv-doctor
+
+  assert_line "Checking \`nodenv install' support: not found"
+}
+
+@test "reports nodenv-install - OK" {
+  with_nodenv
+  with_nodenv_plugin nodenv-install
+
+  run nodenv-doctor
+
+  assert_line -p "Checking \`nodenv install' support: $NODENV_ROOT/plugins/nodenv-install/bin/nodenv-install"
+}
+
+@test "reports nodenv-install - multiple" {
+  with_nodenv
+  with_nodenv_plugin nodenv-install
+  with_nodenv_plugin other-plugin nodenv-install
+
+  run nodenv-doctor
+
+  assert_line "Checking \`nodenv install' support: multiple"
+}
