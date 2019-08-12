@@ -110,3 +110,21 @@ load test_helper
 
   assert_line "Auditing installed plugins: OK"
 }
+
+@test "reports clean setup" {
+  with_nodenv
+  with_nodenv_root
+  with_nodenv_plugin nodenv-install
+  with_nodes 10.2.3
+
+  run nodenv-doctor
+
+  assert_success
+  assert_output - -e <<-OUT
+Checking for \`nodenv' in PATH: $PWD/node_modules/.bin/nodenv
+Checking for nodenv shims in PATH: OK
+Checking \`nodenv install' support: $NODENV_ROOT/plugins/nodenv-install/bin/nodenv-install \(.*\)
+Counting installed Node versions: 1 versions
+Auditing installed plugins: OK
+OUT
+}

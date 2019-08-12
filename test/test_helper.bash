@@ -19,6 +19,10 @@ if [ -z "$TEST_DIR" ]; then
   export PATH
 fi
 
+teardown() {
+  rm -rf "${TEST_DIR:?}"
+}
+
 with_nodenv_in_home() {
   local nodenv="$PWD/node_modules/.bin/nodenv"
 
