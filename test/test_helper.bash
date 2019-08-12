@@ -44,3 +44,10 @@ with_nodenv_plugin() {
   mkdir -p "$path"
   ln -sf /usr/bin/grep "$path/$bin" # using grep b/c it supports '--version'
 }
+
+with_nodes() {
+  local path="$NODENV_ROOT/versions"
+  for node in "$@"; do
+    mkdir -p "$path/$node"
+  done
+}

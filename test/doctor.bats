@@ -85,3 +85,20 @@ load test_helper
   assert_failure
   assert_line "Checking \`nodenv install' support: multiple"
 }
+
+@test "reports nodes - zero" {
+  with_nodenv
+
+  run nodenv-doctor
+
+  assert_line "Counting installed Node versions: none"
+}
+
+@test "reports nodes - some" {
+  with_nodenv
+  with_nodes 10.2.3 12.5.6
+
+  run nodenv-doctor
+
+  assert_line "Counting installed Node versions: 2 versions"
+}
