@@ -102,3 +102,11 @@ load test_helper
 
   assert_line "Counting installed Node versions: 2 versions"
 }
+
+@test "reports plugins - OK" {
+  with_nodenv
+
+  run nodenv-doctor
+
+  assert_line "Auditing installed plugins: OK"
+}
