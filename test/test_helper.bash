@@ -46,7 +46,7 @@ with_nodenv_plugin() {
   local bin=${2:-$1}
   local path="$NODENV_ROOT/plugins/$name/bin"
   mkdir -p "$path"
-  ln -sf /usr/bin/grep "$path/$bin" # using grep b/c it supports '--version'
+  ln -sf "$(command -v grep)" "$path/$bin" # using grep b/c it supports '--version'
 }
 
 with_nodes() {
